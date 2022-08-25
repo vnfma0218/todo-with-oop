@@ -5,19 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="app.css" />
     <script src="./dist/app.js" defer></script>
   </head>
   <body>
-    <h1>Todo App</h1>
-    <form class="form">
-      <input class="user-input" type="text" placeholder="할일을 입력해봐요" />
-      <button class="btn" type="submit">제출</button>
-    </form>
-
-    <template>
+    <section class="todo-app">
+      <header>
+        <h1 class="title">Todo App</h1>
+      </header>
+      <form class="form">
+        <input class="user-input" type="text" placeholder="할일을 입력해봐요" />
+        <button class="btn" type="submit">❤</button>
+      </form>
       <ul class="todo-list">
-        <li class="todo-item"></li>
+        <li class="todo-item">
+          <p class="text">text</p>
+          <button class="goal-input-btn">목표시간 설정하기</button>
+        </li>
       </ul>
-    </template>
+      <div class="goal-form">
+        <label for="goal-hours">목표시간</label>
+        <select
+          name="hours"
+          id="goal-hours"
+          placeholder="목표 시간을 입력하세요"
+        >
+          <option value=""></option>
+        </select>
+      </div>
+
+      <template> </template>
+    </section>
   </body>
 </html>

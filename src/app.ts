@@ -1,11 +1,5 @@
-// 사용자가 제출한 input text를 저장한다
-// 저장한 text 목록을 뿌려준다
-// 리스너를 등록한다
-// 리스너를 등록하기
-
 class TodoItems {
   todos: string[];
-  //   listenerFn: any[];
   listenerFn: any;
   private static instance: TodoItems;
 
@@ -45,7 +39,6 @@ class UserInput {
 
   private submitHandler = (e: Event) => {
     e.preventDefault();
-    console.log(this.inputEl.value);
     todoItems.addTodo(this.inputEl.value);
     this.clearInput();
   };
@@ -56,28 +49,63 @@ class UserInput {
 }
 
 class TodoList {
-  hostEl: HTMLBodyElement;
-  /*   ulEl: HTMLUListElement;
-  liEl: HTMLLIElement; */
-  todoList: any;
+  hostEl: HTMLElement;
+
+  todoList: any[];
 
   constructor() {
-    this.hostEl = document.querySelector("body")! as HTMLBodyElement;
-    // this.ulEl = document.querySelector(".todo-list")! as HTMLUListElement;
-    // this.liEl = document.querySelector(".todo-item")! as HTMLLIElement;
+    console.log("todoList contruector");
+    this.todoList = [];
+    this.hostEl = document.querySelector(".todo-app")! as HTMLElement;
 
-    todoItems.addListener((todos: any) => {
+    todoItems.addListener((todos: any[]) => {
       this.todoList = todos;
       this.rendnerContent();
     });
   }
 
+  private createTodoItemContent = (todo: string) => {
+    const liEl = document.createElement("li") as HTMLLIElement;
+    liEl.className = "todo-item";
+    const pTag = document.createElement("p") as HTMLParagraphElement;
+    pTag.textContent = todo;
+    const btn = document.createElement("button") as HTMLButtonElement;
+    btn.className = "goal-input-btn";
+    btn.textContent = "목표시간 설정하기";
+    liEl.appendChild(pTag);
+    liEl.appendChild(btn);
+    return liEl;
+  };
+
   private rendnerContent = () => {
+    const existingUlEl = document.querySelector(".todo-list");
+    if (existingUlEl) this.hostEl.removeChild(existingUlEl);
     const ulEl = document.createElement("ul") as HTMLUListElement;
     ulEl.className = "todo-list";
-    console.log(this.todoList);
+    this.todoList.forEach((todo) => {
+      const liEl = this.createTodoItemContent(todo);
+      ulEl.appendChild(liEl);
+    });
+    this.hostEl.insertAdjacentElement("beforeend", ulEl);
   };
 }
 
 new UserInput();
 new TodoList();
+
+/* const selecEl = document.querySelector("#goal-hours")! as HTMLSelectElement;
+
+const getHourOptions = () => {
+  const arr = Array.from({ length: 25 }, () => 0);
+  const options = arr.map((_, index) => {
+    if (index === 0) {
+      return ` <option value="">--Please choose goal hours--</option>`;
+    } else {
+      return `<option value=${index}>${index}</option>`;
+    }
+  });
+  return options;
+};
+selecEl.innerHTML = getHourOptions().join("");
+
+getHourOptions(); */

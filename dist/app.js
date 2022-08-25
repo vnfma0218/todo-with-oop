@@ -22,7 +22,6 @@ class UserInput {
         };
         this.submitHandler = (e) => {
             e.preventDefault();
-            console.log(this.inputEl.value);
             todoItems.addTodo(this.inputEl.value);
             this.clearInput();
         };
@@ -36,12 +35,33 @@ class UserInput {
 }
 class TodoList {
     constructor() {
+        this.createTodoItemContent = (todo) => {
+            const liEl = document.createElement("li");
+            liEl.className = "todo-item";
+            const pTag = document.createElement("p");
+            pTag.textContent = todo;
+            const btn = document.createElement("button");
+            btn.className = "goal-input-btn";
+            btn.textContent = "목표시간 설정하기";
+            liEl.appendChild(pTag);
+            liEl.appendChild(btn);
+            return liEl;
+        };
         this.rendnerContent = () => {
+            const existingUlEl = document.querySelector(".todo-list");
+            if (existingUlEl)
+                this.hostEl.removeChild(existingUlEl);
             const ulEl = document.createElement("ul");
             ulEl.className = "todo-list";
-            console.log(this.todoList);
+            this.todoList.forEach((todo) => {
+                const liEl = this.createTodoItemContent(todo);
+                ulEl.appendChild(liEl);
+            });
+            this.hostEl.insertAdjacentElement("beforeend", ulEl);
         };
-        this.hostEl = document.querySelector("body");
+        console.log("todoList contruector");
+        this.todoList = [];
+        this.hostEl = document.querySelector(".todo-app");
         todoItems.addListener((todos) => {
             this.todoList = todos;
             this.rendnerContent();
