@@ -1,28 +1,21 @@
-"use strict";
-class TodoItems {
-    constructor() {
-        this.todos = [];
-    }
-    addTodo(todo) {
-        this.todos.push(todo);
-        this.listenerFn(this.todos.slice());
-    }
-    addListener(fn) {
-        this.listenerFn = fn;
-    }
-    static getInstance() {
-        return this.instance || (this.instance = new this());
-    }
-}
+import { TodoItems } from "./components/model/TodoItems.js";
+import { myGoal } from "./components/myGoal.js";
 const todoItems = TodoItems.getInstance();
 class UserInput {
     constructor() {
         this.clearInput = () => {
+            console.log("clear input~");
             this.inputEl.value = "";
         };
         this.submitHandler = (e) => {
             e.preventDefault();
-            todoItems.addTodo(this.inputEl.value);
+            if (todoItems.myGoal) {
+                todoItems.addTodo(this.inputEl.value);
+            }
+            else {
+                todoItems.addMyGoal(this.inputEl.value);
+            }
+            console.log("submit~!");
             this.clearInput();
         };
         this.formEl = document.querySelector(".form");
@@ -61,7 +54,7 @@ class TodoList {
         };
         console.log("todoList contruector");
         this.todoList = [];
-        this.hostEl = document.querySelector(".todo-app");
+        this.hostEl = document.querySelector("main");
         todoItems.addListener((todos) => {
             this.todoList = todos;
             this.rendnerContent();
@@ -70,4 +63,5 @@ class TodoList {
 }
 new UserInput();
 new TodoList();
+new myGoal();
 //# sourceMappingURL=app.js.map

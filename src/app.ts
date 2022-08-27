@@ -1,26 +1,5 @@
-class TodoItems {
-  todos: string[];
-  listenerFn: any;
-  private static instance: TodoItems;
-
-  private constructor() {
-    this.todos = [];
-  }
-
-  addTodo(todo: string) {
-    this.todos.push(todo);
-    this.listenerFn(this.todos.slice());
-  }
-
-  addListener(fn: any) {
-    this.listenerFn = fn;
-  }
-
-  public static getInstance() {
-    return this.instance || (this.instance = new this());
-  }
-}
-
+import { TodoItems } from "./components/model/TodoItems.js";
+import { myGoal } from "./components/myGoal.js";
 const todoItems = TodoItems.getInstance();
 
 class UserInput {
@@ -34,12 +13,18 @@ class UserInput {
   }
 
   private clearInput = () => {
+    console.log("clear input~");
     this.inputEl.value = "";
   };
 
   private submitHandler = (e: Event) => {
     e.preventDefault();
-    todoItems.addTodo(this.inputEl.value);
+    if (todoItems.myGoal) {
+      todoItems.addTodo(this.inputEl.value);
+    } else {
+      todoItems.addMyGoal(this.inputEl.value);
+    }
+    console.log("submit~!");
     this.clearInput();
   };
 
@@ -50,14 +35,12 @@ class UserInput {
 
 class TodoList {
   hostEl: HTMLElement;
-
   todoList: any[];
 
   constructor() {
     console.log("todoList contruector");
     this.todoList = [];
-    this.hostEl = document.querySelector(".todo-app")! as HTMLElement;
-
+    this.hostEl = document.querySelector("main")! as HTMLElement;
     todoItems.addListener((todos: any[]) => {
       this.todoList = todos;
       this.rendnerContent();
@@ -80,6 +63,7 @@ class TodoList {
   private rendnerContent = () => {
     const existingUlEl = document.querySelector(".todo-list");
     if (existingUlEl) this.hostEl.removeChild(existingUlEl);
+
     const ulEl = document.createElement("ul") as HTMLUListElement;
     ulEl.className = "todo-list";
     this.todoList.forEach((todo) => {
@@ -92,7 +76,7 @@ class TodoList {
 
 new UserInput();
 new TodoList();
-
+new myGoal();
 /* const selecEl = document.querySelector("#goal-hours")! as HTMLSelectElement;
 
 const getHourOptions = () => {

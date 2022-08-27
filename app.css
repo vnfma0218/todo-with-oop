@@ -9,6 +9,11 @@ ul {
   list-style: none;
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit; /* no underline */
+}
+
 button {
   background: inherit;
   border: none;
@@ -20,22 +25,46 @@ button {
 }
 
 .todo-app {
+}
+
+main {
   width: 70%;
   margin: 0 auto;
   text-align: center;
 }
 
-header .title {
-  font-size: 36px;
+.my-goal {
+  text-align: start;
 }
 
-.form {
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+}
+
+header .title {
+  /* font-size: 36px; */
+}
+
+.nav-list {
   display: flex;
 }
 
+.nav-item {
+  border: 1px solid black;
+  padding: 8px 12px;
+  margin-right: 8px;
+}
+
+/* .form {
+  display: flex;
+} */
+
 input[type="text"] {
   width: 100%;
-  padding: 12px 20px;
+  padding: 15px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -44,8 +73,9 @@ input[type="text"] {
 }
 
 button[type="submit"] {
-  width: 10%;
-  padding: 12px 20px;
+  position: absolute;
+  right: 17%;
+  /* padding: 12px 20px; */
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -67,6 +97,8 @@ button[type="submit"]:hover {
 .todo-item {
   width: 100%;
   border: 1px solid black;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
 }
