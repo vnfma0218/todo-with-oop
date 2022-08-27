@@ -8,7 +8,6 @@ export class myGoal {
         this.templateElement = document.getElementById("my-goal-template");
         const importedNode = document.importNode(this.templateElement.content, true);
         this.goalEl = importedNode.firstElementChild;
-        this.goalEl.className = "my-goal";
         this.attach();
         todoItems.addGoalListenr((mygoal) => {
             this.myGoal = mygoal;
@@ -16,21 +15,21 @@ export class myGoal {
         });
     }
     attach() {
-        console.log(`goal ${this.myGoal}`);
+        console.log(todoItems.myGoal);
         if (todoItems.myGoal) {
+            const goalForm = this.goalEl.querySelector("form");
+            this.goalEl.removeChild(goalForm);
             if (this.h3El)
                 this.hostEl.removeChild(this.h3El);
             const goalTextTag = this.goalEl.querySelector("p");
+            const title = this.goalEl.querySelector("h3");
             goalTextTag.textContent = `${this.myGoal}`;
+            title.textContent = "오늘 당신의 목표는..";
             this.hostEl.insertAdjacentElement("afterbegin", this.goalEl);
         }
         else {
-            const h3El = document.createElement("h3");
-            h3El.className = "goal-question";
-            h3El.textContent = "오늘의 목표는 무엇입니까?";
-            this.h3El = h3El;
-            this.hostEl.insertAdjacentElement("afterbegin", h3El);
+            this.hostEl.insertAdjacentElement("afterbegin", this.goalEl);
         }
     }
 }
-//# sourceMappingURL=myGoal.js.map
+//# sourceMappingURL=my-goal.js.map

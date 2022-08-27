@@ -28,21 +28,50 @@
         </nav>
       </header>
       <main>
-        <form class="form">
-          <input
-            class="user-input"
-            type="text"
-            placeholder="할일을 입력해봐요"
-          />
-          <button class="btn" type="submit">❤</button>
-        </form>
-        <!--  <ul class="todo-list">
+        <!-- my goal -->
+        <template id="my-goal-template">
+          <div class="my-goal">
+            <h3>오늘 당신의 목표는 무엇인가요?</h3>
+            <p></p>
+            <form class="form">
+              <input class="user-input" type="text" placeholder="나의 목표는" />
+              <button class="btn" type="submit">❤</button>
+            </form>
+          </div>
+        </template>
+
+        <!-- priority -->
+        <template id="priority">
+          <div class="priority">
+            <h3 class="priority__title">목표를 위해 우선순위를 정해보아요.</h3>
+            <form action="submit">
+              <div class="form-control">
+                <label for="first">1순위</label>
+                <input type="text" class="first" placeholder="1순위" />
+              </div>
+              <div class="form-control">
+                <label for="first">2순위</label>
+                <input type="text" class="first" placeholder="1순위" />
+              </div>
+              <div class="form-control">
+                <label for="first">3순위</label>
+                <input type="text" class="first" placeholder="1순위" />
+              </div>
+            </form>
+          </div>
+        </template>
+      </main>
+    </section>
+  </body>
+</html>
+
+<!--  <ul class="todo-list">
           <li class="todo-item">
             <p class="text">text</p>
             <button class="goal-input-btn">목표시간 설정하기</button>
           </li>
         </ul> -->
-        <!--   <div class="goal-form">
+<!--   <div class="goal-form">
           <label for="goal-hours">목표시간</label>
           <select
             name="hours"
@@ -52,13 +81,3 @@
             <option value=""></option>
           </select>
         </div> -->
-      </main>
-      <template id="my-goal-template">
-        <div class="my-goal">
-          <h3>오늘 당신의 목표는</h3>
-          <p></p>
-        </div>
-      </template>
-    </section>
-  </body>
-</html>

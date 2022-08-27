@@ -1,9 +1,9 @@
-import { TodoItems } from "./model/TodoItems.js";
+import { TodoItems } from "../model/TodoItems.js";
 const todoItems = TodoItems.getInstance();
 
 export class myGoal {
-  hostEl: HTMLElement;
   templateElement: HTMLTemplateElement;
+  hostEl: HTMLElement;
   goalEl: HTMLDivElement;
   myGoal: string;
 
@@ -23,29 +23,29 @@ export class myGoal {
     );
 
     this.goalEl = importedNode.firstElementChild as HTMLDivElement;
-    this.goalEl.className = "my-goal";
     this.attach();
+
     todoItems.addGoalListenr((mygoal: string) => {
       this.myGoal = mygoal;
       this.attach();
     });
   }
+
   private attach() {
-    console.log(`goal ${this.myGoal}`);
+    console.log(todoItems.myGoal);
     if (todoItems.myGoal) {
+      const goalForm = this.goalEl.querySelector("form")! as HTMLFormElement;
+      this.goalEl.removeChild(goalForm);
       if (this.h3El) this.hostEl.removeChild(this.h3El);
       const goalTextTag = this.goalEl.querySelector(
         "p"
       )! as HTMLParagraphElement;
-
+      const title = this.goalEl.querySelector("h3")! as HTMLHeadingElement;
       goalTextTag.textContent = `${this.myGoal}`;
+      title.textContent = "오늘 당신의 목표는..";
       this.hostEl.insertAdjacentElement("afterbegin", this.goalEl);
     } else {
-      const h3El = document.createElement("h3");
-      h3El.className = "goal-question";
-      h3El.textContent = "오늘의 목표는 무엇입니까?";
-      this.h3El = h3El;
-      this.hostEl.insertAdjacentElement("afterbegin", h3El);
+      this.hostEl.insertAdjacentElement("afterbegin", this.goalEl);
     }
   }
 }

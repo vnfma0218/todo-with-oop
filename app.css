@@ -102,3 +102,14 @@ button[type="submit"]:hover {
   justify-content: space-between;
   margin-top: 15px;
 }
+
+/* priority */
+
+.form-control {
+  margin-bottom: 16px;
+}
+
+.priority label {
+  display: flex;
+  margin-bottom: 5px;
+}
